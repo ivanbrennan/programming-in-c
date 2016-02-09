@@ -1,0 +1,70 @@
+To select a different window, click with Mouse-1 on its mode line. With the
+keyboard, you can switch windows by typing C-x o (other-window). That is an o,
+for `other', not a zero. When there are more than two windows, this command
+moves through all the windows in a cyclic order, generally top to bottom and
+left to right. After the rightmost and bottommost window, it goes back to
+the one at the upper left corner. A numeric argument means to move several
+steps in the cyclic order of windows. A negative argument moves around the
+cycle in the opposite order. When the minibuffer is active, the minibuffer
+is the last window in the cycle; you can switch from the minibuffer window
+to one of the other windows, and later switch back and finish supplying the
+minibuffer argument that is requested. See section Editing in the Minibuffer.
+The usual scrolling commands (see section Controlling the Display) apply to
+the selected window only, but there is one command to scroll the next window.
+C-M-v (scroll-other-window) scrolls the window that C-x o would select. It takes
+arguments, positive and negative, like C-v. (In the minibuffer, C-M-v scrolls
+the window that contains the minibuffer help display, if any, rather than the
+next window in the standard cyclic order.) The command M-x compare-windows lets
+you compare two files or buffers visible in two windows, by moving through them
+to the next mismatch. See section Comparing Files, for details. Displaying
+in Another Window C-x 4 is a prefix key for commands that select another
+window (splitting the window if there is only one) and select a buffer in that
+window. Different C-x 4 commands have different ways of finding the buffer to
+select. C-x 4 b bufname RET Select buffer bufname in another window. This runs
+switch-to-buffer-other-window. C-x 4 C-o bufname RET Display buffer bufname
+in another window, but don't select that buffer or that window. This runs
+display-buffer. C-x 4 f filename RET Visit file filename and select its buffer
+in another window. This runs find-file-other-window. See section Visiting
+Files. C-x 4 d directory RET Select a Dired buffer for directory directory in
+another window. This runs dired-other-window. See section Dired, the Directory
+Editor. C-x 4 m Start composing a mail message in another window. This runs
+mail-other-window; its same-window analogue is C-x m (see section Sending
+Mail). C-x 4 . Find a tag in the current tags table, in another window. This
+runs find-tag-other-window, the multiple-window variant of M-. (see section
+Tags Tables). C-x 4 r filename RET Visit file filename read-only, and select
+its buffer in another window. This runs find-file-read-only-other-window.
+See section Visiting Files. Forcing Display in the Same Window Certain Emacs
+commands switch to a specific buffer with special contents. For example, M-x
+shell switches to a buffer named `*Shell*'. By convention, all these commands
+are written to pop up the buffer in a separate window. But you can specify
+that certain of these buffers should appear in the selected window. If you add
+a buffer name to the list same-window-buffer-names, the effect is that such
+commands display that particular buffer by switching to it in the selected
+window. For example, if you add the element "*grep*" to the list, the grep
+command will display its output buffer in the selected window. The default value
+of same-window-buffer-names is not nil. It specifies the buffers `*info*',
+`*mail*' and `*shell*'. This is why M-x shell normally switches to the `*shell*'
+buffer in the selected window. If you delete this element from the value of
+same-window-buffer-names, the behavior of M-x shell will change--it will pop
+up the buffer in another window instead. You can specify these buffers more
+generally with the variable same-window-regexps. Set it to a list of regular
+expressions; then any buffer whose name matches one of those regular expressions
+is displayed by switching to it in the selected window. (Once again, this
+applies only to buffers that normally get displayed for you in a separate
+window.) The default value of this variable specifies Telnet and rlogin buffers.
+An analogous feature lets you specify buffers which should be displayed in
+their own individual frames. See section Special Buffer Frames. Deleting and
+Rearranging Windows C-x 0 Delete the selected window (delete-window). That is a
+zero. C-x 1 Delete all windows in the selected frame except the selected window
+(delete-other-windows). C-x ^ Make selected window taller (enlarge-window).
+C-x } Make selected window wider (enlarge-window-horizontally). Drag-Mouse-1
+Dragging a window's mode line up or down with Mouse-1 changes window heights.
+Mouse-2 Mouse-2 in a window's mode line deletes all other windows in the
+frame (mouse-delete-other-windows). Mouse-3 Mouse-3 in a window's mode line
+deletes that window (mouse-delete-window). To delete a window, type C-x 0
+(delete-window). (That is a zero.) The space occupied by the deleted window is
+given to an adjacent window (but not the minibuffer window, even if that is
+active at the time). Once a window is deleted, its attributes are forgotten;
+only restoring a window configuration can bring it back. Deleting the window has
+no effect on the buffer it used to display; the buffer continues to exist, and
+you can select it in any window with C-x b.
