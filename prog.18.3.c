@@ -1,15 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DEBUG(fmt, ...) fprintf (stderr, fmt, __VA_ARGS__)
+#ifdef DEBON
+#	define DEBUG(level, fmt, ...) \
+		if (Debug >= level) \
+			fprintf (stderr, fmt, __VA_ARGS__)
+#else
+#	define DEBUG(level, fmt, ...)
+#endif
+
+int Debug = 0;
 
 int process (int i1, int i2)
 {
 	int val;
 
-	DEBUG ("process (%i, %i)\n", i1, i2);
+	DEBUG (1, "process (%i, %i)\n", i1, i2);
 	val = i1 * i2;
-	DEBUG ("return %i\n", val);
+	DEBUG (3, "return %i\n", val);
 
 	return val;
 }
@@ -20,11 +28,13 @@ int main (int argc, char *argv[])
 
 	if ( argc > 1 )
 		arg1 = atoi (argv[1]);
-	if ( argc == 3 )
+	if ( argc > 2 )
 		arg2 = atoi (argv[2]);
+	if ( argc == 4 )
+		Debug = atoi (&argv[3][2]);
 
-	DEBUG ("processed %i arguments\n", argc - 1);
-	DEBUG ("arg1 = %i, arg2 = %i\n", arg1, arg2);
+	DEBUG (2, "processed %i arguments\n", argc - 1);
+	DEBUG (2, "arg1 = %i, arg2 = %i\n", arg1, arg2);
 	printf ("%d\n", process (arg1, arg2));
 
 	return 0;
