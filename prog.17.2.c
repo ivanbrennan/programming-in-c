@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stddef.h>
+#include <stdio.h>
 
 struct entry
 {
@@ -30,6 +31,22 @@ struct entry *addEntry (struct entry *listPtr)
 
 int main (int argc, char *argv[])
 {
+	struct entry listHead = { .value = 1, .next = (struct entry *) 0 };
+	struct entry *listPtr = &listHead;
+
+	for (int i = 1; i < argc; ++i) {
+		struct entry *newEntry = addEntry (listPtr);
+		if ( newEntry != NULL ) {
+			newEntry->value = atoi (argv[i]);
+		}
+		listPtr = newEntry;
+	}
+
+	listPtr = &listHead;
+	while (listPtr != NULL) {
+		printf ("%i\n", listPtr->value);
+		listPtr = listPtr->next;
+	}
 
 	return 0;
 }
