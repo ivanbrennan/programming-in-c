@@ -51,7 +51,7 @@ int main (void)
 				break;
 		}
 	}
-	while ( number != 0 );
+	while ( power != 0 );
 
 	printf ("\n");
 
